@@ -1,0 +1,8 @@
+<div class="<%= ctxVal.tableClass %>">
+    <% for (let i = 0; i < ctxVal.component.numRows; i++) { %>
+            <% for (let j = 0; j < ctxVal.component.numCols; j++) { %>
+              <% <label for="rating-input-<%= i %>-<%= j %>" class="rating-star"></label> %>
+                <%- ctxVal.renderCell(i, j) %>
+            <% } %>
+      <% } %>
+</div>

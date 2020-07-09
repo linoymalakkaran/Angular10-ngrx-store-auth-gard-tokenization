@@ -1,0 +1,28 @@
+<nb-card>
+    <nb-card-body>
+        <nb-actions size="medium">
+            <nb-action (click)="addnewform()" icon="plus-square-outline"></nb-action>
+            <nb-action>
+                <input type="text" [(ngModel)]="searchTerm" nbInput id="searchTerm" placeholder="Search">
+            </nb-action>
+            <nb-action (click)="filter()" icon="search-outline"></nb-action>
+        </nb-actions>
+    </nb-card-body>
+</nb-card>
+<div class="row">
+    <div class="col-md-6" *ngFor="let form of forms">
+        <nb-card size="tiny">
+            <nb-card-header>
+                <h3>{{form.name}}</h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div [innerHTML]='form.description'>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="openDetails(form._id)" outline status="primary"
+                    style="float:left">Modify</button>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+</div>

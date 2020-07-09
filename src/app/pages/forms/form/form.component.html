@@ -1,0 +1,132 @@
+<form name="serviceForm">
+  <nb-card>
+    <nb-card-body>
+      <button (click)="submit()" id="saveButton" nbButton>Save</button> &nbsp;
+    </nb-card-body>
+  </nb-card>
+  <nb-card *ngIf="error.length > 0">
+    <nb-card-header>
+      Please fix the below errors and try again
+    </nb-card-header>
+    <nb-card-body>
+      <ul class="errorUl">
+        <li *ngFor="let err of error">{{ err.message }}</li>
+      </ul>
+    </nb-card-body>
+  </nb-card>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-12">
+          <h1>{{ form.name }}</h1>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="formName" class="label">Form Name</label>
+            <input
+              name="formName"
+              type="text"
+              [(ngModel)]="form.name"
+              nbInput
+              fullWidth
+              id="formName"
+              placeholder="Form Name"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="description" class="label">Description</label>
+            <input
+              name="description"
+              type="text"
+              [(ngModel)]="form.description"
+              nbInput
+              fullWidth
+              id="description"
+              placeholder="Form Description"
+            />
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</form>
+<nb-card>
+  <nb-card-body>
+    <nb-tabset (changeTab)="onChangeTab($event)">
+      <nb-tab tabTitle="Entry Form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="formName" class="label">Form Type</label>
+              <nb-select
+                fullWidth
+                (selectedChange)="setFormDisplay($event)"
+                name="formtype"
+                [(ngModel)]="form.serviceform.schema.display"
+              >
+                <nb-option value="form">Standard Survey</nb-option>
+                <nb-option value="wizard">Multi Page Survey</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="float: right; margin-top: 28px;">
+              <button (click)="fullScreenEditor()" nbButton>
+                Popout designer
+              </button>
+              &nbsp;
+              <button (click)="showPreview()" id="previewButton" nbButton>
+                Preview
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <nb-card>
+              <nb-card-body>
+                <form-builder
+                  (change)="onChange($event)"
+                  #formbuilder
+                  [form]="form.serviceform.schema"
+                ></form-builder>
+                <!-- <form-builder
+                  [options]="options"
+                  (change)="onChange($event)"
+                  #formbuilder
+                  [form]="form.serviceform.schema"
+                ></form-builder> -->
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>
+
+<ng-template #previewTemplate let-data>
+  <nb-card size="medium" style="width: 90vw;">
+    <nb-card-body>
+      <formio
+        (submit)="onSubmit($event)"
+        [form]="form.serviceform.schema"
+      ></formio>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #fullScreenTemplate let-data>
+  <nb-card size="medium" style="width: 90vw;">
+    <nb-card-body>
+      <form-builder [form]="form.serviceform.schema"></form-builder>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
