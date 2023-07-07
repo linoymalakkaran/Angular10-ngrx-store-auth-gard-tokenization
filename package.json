@@ -91,7 +91,7 @@
     "npm-run-all": "4.0.2",
     "protractor": "^7.0.0",
     "rimraf": "2.6.1",
-    "stylelint": "^13.6.1",
+    "stylelint": "^15.10.1",
     "ts-node": "3.2.2",
     "tslint": "^5.20.1",
     "tslint-language-service": "^0.9.9",
